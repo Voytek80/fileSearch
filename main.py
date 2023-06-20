@@ -1,22 +1,15 @@
 import os
 
-file_name = "file"
-root = "/"
-directory = root
-def search(directory, fi):
-    stack = []
-    for i in os.listdir(directory):
-        if (i == fi):
-            print("File found")
-            dir_path = os.path.dirname(fi)
-            print(dir_path, i)
-            break
-        isDirectory = os.path.isdir(directory + i)
-        if isDirectory and not i.startswith("."):
-            stack.append(i + "/")
 
-    while stack:
-        search(directory + stack.pop(), fi)
+def search_file(file_name):
+    for root, dirs, files in os.walk('/'):
+        if file_name in files:
+            file_path = os.path.join(root, file_name)
+            return os.path.dirname(file_path)
+    return "File not found"
 
-search(directory, file_name)
+
+if __name__ == '__main__':
+    file_name = input("Enter file name: ")
+    print(search_file(file_name))
 
